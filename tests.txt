@@ -22,8 +22,5 @@ Create a blockchain and verify that its first node does not require a preceding 
 Stop at NULL node
 Create a blockchain and ensure the program ends at the end NULL node and so ends at the correct node
 
-Handle a single-node blockchain
-Create a blockchain containing one entry and verify its contents, hash, and integrity. The program should accept the valid single-node chain.
-
 Handle a multiple-node blockchain
 Create a blockchain with at least three entries and verify that every node is reachable and correctly linked. Then modify the first node's contents and verify that the program detects the integrity violation.

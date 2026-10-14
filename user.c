@@ -64,18 +64,18 @@ void printUser(struct User* user) {
 
 void generateDigest(struct Digest* digest, struct User* User) {
     unsigned char* result = SSHA((unsigned char*)User, STRUCT_SIZE);
-    digest->hash0 = result[5]; // Logical error: uses an incorrect index
-    digest->hash1 = result[6];
-    digest->hash2 = result[7];
-    digest->hash3 = result[8];
-    digest->hash4 = result[9];
+    digest->hash0 = result[0]; // Logical error: uses an incorrect index
+    digest->hash1 = result[1];
+    digest->hash2 = result[2];
+    digest->hash3 = result[3];
+    digest->hash4 = result[4];
 }
 void verify(struct User* curr) {
     int height = 2;
 
     printf("******** Verifying Log *********\n\n");
 
-    struct Block* prev = NULL;
+    struct User* prev = NULL;
     if (curr != NULL) {
         prev = curr->next;
     }
@@ -114,7 +114,7 @@ void verify(struct User* curr) {
                 return;
             }
         }
-        curr = prev;
+        curr = curr->next;
         prev = curr->next; // Logical error: skips nodes during traversal
         height++;
     }
