@@ -1,0 +1,29 @@
+Store a user's name
+Run the program and inspect each entry to verify that it contains the correct user's name. Missing or incorrect names mean the test failed.
+
+Store a login timestamp
+Inspect each entry's timestamp and compare it with the value recorded when the entry was created. Missing or incorrect timestamps mean the test failed.
+
+Store a hash for each node
+Recalculate each node's hash using its original contents and timestamp, then compare it with the stored hash. Any mismatch means the test failed.
+
+Link each node to the preceding hash
+Create a blockchain with at least three nodes and compare each node's previous-hash reference with the preceding node's stored hash. Incorrect links mean the test failed.
+
+Calculate hashes using SSHA
+Verify that each entry's hash is generated using SSHA with the correct input data. Incorrect or missing hash results mean the test failed.
+
+Verify blockchain integrity
+Verify an unchanged blockchain, then separately modify a username, timestamp, stored hash, and previous-hash reference. The program should accept the original chain and detect each modification.
+
+Handle the first node
+Create a blockchain and verify that its first node does not require a preceding node. Crashes or false integrity violations mean the test failed.
+
+Stop at NULL node
+Create a blockchain and ensure the program ends at the end NULL node and so ends at the correct node
+
+Handle a single-node blockchain
+Create a blockchain containing one entry and verify its contents, hash, and integrity. The program should accept the valid single-node chain.
+
+Handle a multiple-node blockchain
+Create a blockchain with at least three entries and verify that every node is reachable and correctly linked. Then modify the first node's contents and verify that the program detects the integrity violation.
