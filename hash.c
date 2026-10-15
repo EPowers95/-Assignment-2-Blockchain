@@ -36,6 +36,47 @@ unsigned char* SSHA(const unsigned char* msg, size_t length) {
     return digest;
 }
 
+#include <cstddef>
+
+unsigned char* SSHA2(const unsigned char* msg, size_t length)
+{
+    unsigned char A = 56;
+    unsigned char B = 99;
+    unsigned char C = 102;
+    unsigned char D = 67;
+    unsigned char E = 76;
+
+    for (size_t i = 0; i < length; i++)
+    {
+        unsigned char shiftA2 = A >> 2;                    // A -> >>2
+        unsigned char shiftB1 = B >> 1;                    // B -> >>1
+        unsigned char andBC   = B & C;                     // left  &
+        unsigned char andCD   = C & D;                     // right &
+        unsigned char orOut   = andBC | andCD;             // |
+
+        unsigned char newA = E;                            // E wraps around to A
+        unsigned char newB = A;                            // A moves down to B
+        unsigned char newC = shiftA2 + E;                  // middle +
+        unsigned char newD = shiftA2 ^ shiftB1;            // ^
+        unsigned char newE = shiftB1 + orOut + msg[i];     // right +
+
+        A = newA;
+        B = newB;
+        C = newC;
+        D = newD;
+        E = newE;
+    }
+
+    unsigned char* result = (unsigned char*)malloc(DIGEST_SIZE * sizeof(unsigned char));
+    result[0] = A;
+    result[1] = B;
+    result[2] = C;
+    result[3] = D;
+    result[4] = E;
+
+    return result;
+}
+
 int digest_equal(struct Digest digest1, struct Digest digest2) {
     return ((digest1.hash0 == digest2.hash0) &&
         (digest1.hash1 == digest2.hash1) &&
