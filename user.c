@@ -24,6 +24,7 @@ struct User* add(struct User * head, char* Username) {
         generateDigest(&(newHead->hash), head);
     }
     
+    // newHead->hash.hash0 = 3;
     return newHead; // Logical error: returns the old head instead of the new node
 }
 

@@ -10,15 +10,21 @@ unsigned char* SSHA(const unsigned char* msg, size_t length) {
 
     for (int i = 0; i < length; i++) {
         for (int round = 0; round < 8; round++) {
-            unsigned char g = (B & C) | (C & D);
-            unsigned char old_A = A;
-            A = A ^ 2;
-            B = B + msg[i];
-            E = (g + msg[i] + B);
-            D = A ^ B;
-            C = (A + E);
-            A = E;
-            B = old_A;
+            unsigned char new_A;
+            unsigned char new_B;
+            unsigned char new_C;
+            unsigned char new_D;
+            unsigned char new_E;
+            new_A = E;
+            new_B = A;
+            new_C = (A >> 2) + E;
+            new_D = (A >> 2) ^ (B >> 1);
+            new_E = (B >> 1) + (msg[i]) + ((C & B) | (C & D)); 
+            A = new_A;
+            B = new_B;
+            C = new_C;
+            D = new_D;
+            E = new_E;
         }
     }
     unsigned char* digest = (unsigned char*)malloc(DIGEST_SIZE * sizeof(unsigned char));
